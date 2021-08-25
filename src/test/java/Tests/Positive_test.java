@@ -1,3 +1,5 @@
+package Tests;
+
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -8,7 +10,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class Test {
+public class Positive_test {
     @BeforeAll
     static void setup() {
         Configuration.baseUrl = "https://demoqa.com";

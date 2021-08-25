@@ -38,7 +38,7 @@ tasks.withType(JavaCompile) {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType(Test) {
+tasks.withType(Tests.Test) {
     useJUnitPlatform()
 
     testLogging {
@@ -50,7 +50,7 @@ tasks.withType(Test) {
     }
 }
 
-task smoke(type: Test) {
+task smoke(type: Tests.Test) {
     useJUnitPlatform {
         includeTags 'smoke'
     }
