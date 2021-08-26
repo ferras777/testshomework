@@ -63,25 +63,29 @@ public class PositiveTest extends Base {
             $ ("#city").click ();
             $ ("#stateCity-wrapper").$ (byText (city)).click ();
         });
-
-
-        //check date
-        step("Verify successful form submit", () -> {
-            $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-            $x("//td[text()='Student Name']").parent().shouldHave(text(firstName + " " + lastName));
-            $x("//td[text()='Student Email']").parent().shouldHave(text(email));
-            $x("//td[text()='Gender']").parent().shouldHave(text(gender));
-            $x("//td[text()='Mobile']").parent().shouldHave(text(mobile));
-            $x("//td[text()='Date of Birth']").parent().shouldHave(text(dayOfBirth + " " + monthOfBirth + "," + yearOfBirth));
-            $x("//td[text()='Subjects']").parent().shouldHave(text(subject));
-            $x("//td[text()='Hobbies']").parent().shouldHave(text(hobby));
-            $x("//td[text()='Picture']").parent().shouldHave(text(picture));
-            $x("//td[text()='Address']").parent().shouldHave(text(currentAddress));
-            $x("//td[text()='State and City']").parent().shouldHave(text(state + " " + city));
+        step ("Submit", () -> {
+            $("#submit").click();
         });
-    }
+
+
+
+    step("Verify successful form submit", () ->{
+        $ ("#example-modal-sizes-title-lg").shouldHave (text ("Thanks for submitting the form"));
+        $x ("//td[text()='Student Name']").parent ().shouldHave (text (firstName + " " + lastName));
+        $x ("//td[text()='Student Email']").parent ().shouldHave (text (email));
+        $x ("//td[text()='Gender']").parent ().shouldHave (text (gender));
+        $x ("//td[text()='Mobile']").parent ().shouldHave (text (mobile));
+        $x ("//td[text()='Date of Birth']").parent ().shouldHave (text (dayOfBirth + " " + monthOfBirth + "," + yearOfBirth));
+        $x ("//td[text()='Subjects']").parent ().shouldHave (text (subject));
+        $x ("//td[text()='Hobbies']").parent ().shouldHave (text (hobby));
+        $x ("//td[text()='Picture']").parent ().shouldHave (text (picture));
+        $x ("//td[text()='Address']").parent ().shouldHave (text (currentAddress));
+        $x ("//td[text()='State and City']").parent ().shouldHave (text (state + " " + city));
+    });
+ }
 
 }
+
 
 
 
