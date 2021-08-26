@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
-public class PositiveTest extends Base {
+public class Positive extends TestBase {
 
     Faker faker = new Faker ();
 
