@@ -63,7 +63,7 @@ public class Positive extends TestBase {
             $ ("#city").click ();
             $ ("#stateCity-wrapper").$ (byText (city)).click ();
         });
-        step ("Submit", () -> {
+        step ("Submi", () -> {
             $("#submit").click();
         });
 
