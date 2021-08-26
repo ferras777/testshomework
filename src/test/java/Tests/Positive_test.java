@@ -1,63 +1,91 @@
 package Tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 
-import java.io.File;
+import com.github.javafaker.Faker;
+import org.junit.jupiter.api.Test;
+
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
+import static io.qameta.allure.Allure.step;
 
-public class Positive_test {
-    @BeforeAll
-    static void setup() {
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.startMaximized = true;
-    }
+public class Positive_test extends Base {
 
-    @org.junit.jupiter.api.Test
-    void positiveTest() {
+    Faker faker = new Faker ();
 
-        open("/automation-practice-form");
-        $("#firstName").setValue("Liza");   //use val
-        $("#lastName").setValue("Shilo");
-        $("#userEmail").setValue("alim@mail.ru");
-        $(byText("Female")).click();
-        $("#userNumber").setValue("9626974543");
-        $("#dateOfBirthInput").clear();
-        $(".react-datepicker__month-select").selectOption("October");
-        $(".react-datepicker__year-select").selectOption("1998");
-        $(".react-datepicker__day--025").click();
-        $("#subjectsInput").setValue("Computer Science").pressEnter();
-        $("#hobbiesWrapper").$(byText("Reading")).click();
-        $("#uploadPicture").uploadFile(new File ("src/test/resources/Picture.png"));
-        $("#currentAddress").setValue("my address");
-        $("#react-select-3-input").setValue("Rajasthan").pressEnter();
-        $("#react-select-4-input").setValue("Jaipur").pressEnter();
-        $("#submit").click();
+    String firstName = faker.name ().firstName (),
+            lastName = faker.name ().lastName (),
+            email = faker.internet ().emailAddress (),
+            gender = "Female",
+            mobile = faker.number ().digits (10),
+            dayOfBirth = "25",
+            monthOfBirth = "October",
+            yearOfBirth = "1998",
+            subject = "Computer Science",
+            hobby = "Reading",
+            picture = "Picture.png",
+            currentAddress = faker.address ().fullAddress (),
+            state = "Rajasthan",
+            city = "Jaipur";
+
+    @Test
+    void positiveTest () {
+
+        step ("Open web form", () -> {
+            open ("https://demoqa.com/automation-practice-form");
+            $ (".practice-form-wrapper").shouldHave (text ("Student Registration Form"));
+        });
+        step ("Fill data user", () -> {
+            $ ("#firstName").val (firstName);
+            $ ("#lastName").val (lastName);
+            $ ("#userEmail").val (email);
+            $ ("#genterWrapper").$ (byText (gender)).click ();
+            $ ("#userNumber").val (mobile);
+        });
+        step ("Fill date of birth", () -> {
+            $ ("#dateOfBirthInput").clear ();
+            $ (".react-datepicker__month-select").selectOption (monthOfBirth);
+            $ (".react-datepicker__year-select").selectOption (yearOfBirth);
+            $ (".react-datepicker__day--0" + dayOfBirth).click ();
+        });
+        step ("Fill a subject", () -> {
+            $ ("#subjectsInput").val (subject).pressEnter ();
+        });
+        step ("Fill a hobbies", () -> $ ("#hobbiesWrapper").$ (byText (hobby)).click ());
+        step ("Upload picture", () -> {
+            $ ("#uploadPicture").uploadFromClasspath ("img/" + picture);
+        });
+        step ("Fill an address", () -> {
+            $ ("#currentAddress").val (currentAddress);
+            $ ("#state").scrollTo ().click ();
+            $ ("#stateCity-wrapper").$ (byText (state)).click ();
+            $ ("#city").click ();
+            $ ("#stateCity-wrapper").$ (byText (city)).click ();
+        });
 
 
         //check date
-
-        $(".modal-body").shouldHave(text("Liza"));
-        $(".modal-body").shouldHave(text("Shilo"));
-        $(".modal-body").shouldHave(text("Female"));
-        $(".modal-body").shouldHave(text("alim@mail.ru"));
-        $(".modal-body").shouldHave(text("9626974543"));
-        $(".modal-body").shouldHave(text("25 October,1998"));
-        $(".modal-body").shouldHave(text("Computer Science"));
-        $(".modal-body").shouldHave(text("Reading"));
-        $(".modal-body").shouldHave(text("Picture.png"));
-        $(".modal-body").shouldHave(text("my address"));
-        $(".modal-body").shouldHave(text("Rajasthan"));
-        $(".modal-body").shouldHave(text("Jaipur"));
-
-
+        step("Verify successful form submit", () -> {
+            $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+            $x("//td[text()='Student Name']").parent().shouldHave(text(firstName + " " + lastName));
+            $x("//td[text()='Student Email']").parent().shouldHave(text(email));
+            $x("//td[text()='Gender']").parent().shouldHave(text(gender));
+            $x("//td[text()='Mobile']").parent().shouldHave(text(mobile));
+            $x("//td[text()='Date of Birth']").parent().shouldHave(text(dayOfBirth + " " + monthOfBirth + "," + yearOfBirth));
+            $x("//td[text()='Subjects']").parent().shouldHave(text(subject));
+            $x("//td[text()='Hobbies']").parent().shouldHave(text(hobby));
+            $x("//td[text()='Picture']").parent().shouldHave(text(picture));
+            $x("//td[text()='Address']").parent().shouldHave(text(currentAddress));
+            $x("//td[text()='State and City']").parent().shouldHave(text(state + " " + city));
+        });
     }
 
-
 }
+
+
+
+
+
 
 
