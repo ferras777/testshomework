@@ -1,12 +1,8 @@
-package WebForm.properties;
+package Tests.properties;
 
 
-import jdk.tools.jaotc.collect.SourceProvider;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import javax.xml.transform.SourceLocator;
-import java.sql.SQLOutput;
 
 @Tag ("properties")
 public class PropertiesTests {

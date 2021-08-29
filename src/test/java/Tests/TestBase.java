@@ -1,4 +1,4 @@
-package WebForm;
+package Tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;

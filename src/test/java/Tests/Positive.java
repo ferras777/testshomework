@@ -1,4 +1,4 @@
-package WebForm;
+package Tests;
 
 
 import com.github.javafaker.Faker;
