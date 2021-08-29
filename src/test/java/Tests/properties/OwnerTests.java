@@ -1,5 +1,6 @@
 package Tests.properties;
 
+import config.Credentials;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,8 @@ public class OwnerTests {
 
     @Test
     void readCredentialsTest() {
-        String login = "credentials.login()";
-        String password = "credentials.password()";
+        String login = Credentials.credentials.login ();
+        String password = Credentials.credentials.password();
 
         System.out.println(login);
         System.out.println(password);
