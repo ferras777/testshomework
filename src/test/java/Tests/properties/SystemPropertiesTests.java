@@ -41,7 +41,7 @@ public class SystemPropertiesTests {
     void setPropertyTest() {
 
         System.out.println(System.getProperty("browser"));
-        System.setProperty("browser", "chrome");
+        System.setProperty("browser", "firefox");
 
         System.out.println(System.getProperty("browser"));
 
